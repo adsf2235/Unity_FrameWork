@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,17 @@ public class PlayerController : MonoBehaviour
     int _speed = 10;
     void Start()
     {
-
+        Managers.Input.KeyAction -= OnKeyboard;
+        Managers.Input.KeyAction += OnKeyboard;
     }
 
     void Update()
+    {
+       
+
+    }
+
+    public void OnKeyboard()
     {
         if (Input.GetKey(KeyCode.W))
         {
@@ -34,6 +42,5 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
             transform.position += Vector3.right * Time.deltaTime * _speed;
         }
-
     }
 }

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
-    static Managers s_Instance;
-    static Managers Instance { get { Init(); return Instance; } }
+    static Managers s_instance;
+    static Managers Instance { get { Init();  return s_instance; } }
+
+    InputManager _input = new InputManager();
+    public static InputManager Input { get { return Instance._input; } } 
 
     void Start()
     {
@@ -14,12 +17,12 @@ public class Managers : MonoBehaviour
 
     void Update()
     {
-
+        _input.OnUpdate();
     }
 
     static void Init()
     {
-        if (s_Instance == null)
+        if (s_instance == null)
         {
             GameObject go = GameObject.Find("@Managers");
             if (go == null)
@@ -28,7 +31,7 @@ public class Managers : MonoBehaviour
                 go.AddComponent<Managers>();
             }
             DontDestroyOnLoad(go);
-            s_Instance = go.GetComponent<Managers>();
+            s_instance = go.GetComponent<Managers>();
         }
 
     }
