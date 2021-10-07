@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     bool _moveDest;
     Vector3 _destPos;
+    float wait_run_ratio;
     void Start()
     {
         Managers.Input.KeyAction -= OnKeyboard;
@@ -25,6 +26,10 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = _destPos - transform.position;
         if (dir.magnitude < 0.0001f)
         {
+            Animator anim = GetComponent<Animator>();
+            anim.Play("WAIT_RUN");
+            wait_run_ratio = Mathf.Lerp(wait_run_ratio, 0, 10 * Time.deltaTime);
+            anim.SetFloat("wait_run_ratio", wait_run_ratio);
             _moveDest = false;
         }
         else
@@ -34,8 +39,13 @@ public class PlayerController : MonoBehaviour
                 float _moveDist = Mathf.Clamp(_speed * Time.deltaTime, 0, dir.magnitude);
                 transform.position += dir.normalized * _moveDist;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 10);
+
+                Animator anim = GetComponent<Animator>();
+                anim.Play("WAIT_RUN");
+                wait_run_ratio = Mathf.Lerp(wait_run_ratio, 1, 10 * Time.deltaTime);
+                anim.SetFloat("wait_run_ratio", wait_run_ratio);
             }
-            
+           
         }
 
     }
