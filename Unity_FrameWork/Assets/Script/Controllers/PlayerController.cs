@@ -29,9 +29,13 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            float _moveDist = Mathf.Clamp(_speed * Time.deltaTime, 0, dir.magnitude);
-            transform.position += dir.normalized * _moveDist;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 10);
+            if (_moveDest)
+            {
+                float _moveDist = Mathf.Clamp(_speed * Time.deltaTime, 0, dir.magnitude);
+                transform.position += dir.normalized * _moveDist;
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 10);
+            }
+            
         }
 
     }
