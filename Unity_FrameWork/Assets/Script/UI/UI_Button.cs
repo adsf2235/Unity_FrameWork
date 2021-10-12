@@ -34,9 +34,27 @@ public class UI_Button : MonoBehaviour
         
     }
 
+    public T Get<T>(int idx) where T : UnityEngine.Object
+    {
+        UnityEngine.Object[] objects = null;
+        if(_objects.TryGetValue(typeof(T), out objects) == false)
+        {
+            return null;
+        }
+        else
+        {
+            return objects[idx] as T;
+        }
+        
+    }
+
+
     private void Start()
     {
         Bind<Button>(typeof(Buttons));
+        Bind<Text>(typeof(Texts));
+
+        Get<Text>((int)Texts.ScoreText).text = "TEST";
     }
 
     public void OnClicked()
