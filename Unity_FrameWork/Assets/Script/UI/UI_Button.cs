@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Button : MonoBehaviour
+public class UI_Button : UI_Base
 {
-    Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
+    
     enum Buttons
     {
         PointButton,
@@ -20,33 +20,7 @@ public class UI_Button : MonoBehaviour
 
     }
 
-    void Bind<T>(Type type) where T : UnityEngine.Object
-    {
-        string[] names = Enum.GetNames(type);
-        UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
-        _objects.Add(typeof(T), objects);
-
-        for (int i = 0; i < names.Length; i++)
-        {
-            objects[i] = Utill.FindChild<T>(gameObject, names[i], true);
-        }
-        
-        
-    }
-
-    public T Get<T>(int idx) where T : UnityEngine.Object
-    {
-        UnityEngine.Object[] objects = null;
-        if(_objects.TryGetValue(typeof(T), out objects) == false)
-        {
-            return null;
-        }
-        else
-        {
-            return objects[idx] as T;
-        }
-        
-    }
+    
 
 
     private void Start()

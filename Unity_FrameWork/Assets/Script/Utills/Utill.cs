@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class Utill 
 {
+    public static GameObject FindChild(GameObject go, string name = null, bool recursive = false)
+    {
+       Transform transform = FindChild<Transform>(go, name, recursive);
+        if (transform == null)
+        {
+            return null;
+        }
+        else
+        {
+            return transform.gameObject;
+        }
+    }
+
     public static T FindChild<T>(GameObject go, string name = null, bool recursive = false) where T : UnityEngine.Object
     {
         if (go==null)
