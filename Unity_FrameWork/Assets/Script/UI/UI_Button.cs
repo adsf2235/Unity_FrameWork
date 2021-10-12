@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_Button : UI_Base
@@ -20,6 +21,12 @@ public class UI_Button : UI_Base
 
     }
 
+    enum Images
+    {
+        ItemImage,
+
+    }
+
     
 
 
@@ -29,7 +36,13 @@ public class UI_Button : UI_Base
         Bind<Text>(typeof(Texts));
 
         Get<Text>((int)Texts.ScoreText).text = "TEST";
+        Bind<Image>(typeof(Images));
+        GameObject go = GetImage((int)Images.ItemImage).gameObject;
+        UI_DragHandler evt = go.GetComponent<UI_DragHandler>();
+        evt.OnDragHandler += ((PointerEventData data) => { go.transform.position = data.position; });
     }
+
+
 
     public void OnClicked()
     {
