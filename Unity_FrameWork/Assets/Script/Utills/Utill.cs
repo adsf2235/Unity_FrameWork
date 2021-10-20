@@ -53,4 +53,15 @@ public class Utill
 
     }
 
+    public static T GetOrAddComponet<T>(GameObject go) where T : UnityEngine.Component
+    {
+          T componet;
+        componet = go.GetComponent<T>();
+        if (componet == null)
+        {
+            componet = go.AddComponent<T>();
+        }
+        return componet;
+    }
+
 }

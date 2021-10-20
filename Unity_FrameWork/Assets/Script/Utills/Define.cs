@@ -15,5 +15,12 @@ public class Define
         QuarterView,
 
     }
+
+    public enum UIEvent
+    {
+        Click,
+        Drag,
+
+    }
   
 }

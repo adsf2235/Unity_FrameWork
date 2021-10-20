@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UI_Button : UI_Base
 {
-    
+    int _score = 0;
     enum Buttons
     {
         PointButton,
@@ -35,17 +35,21 @@ public class UI_Button : UI_Base
         Bind<Button>(typeof(Buttons));
         Bind<Text>(typeof(Texts));
 
-        Get<Text>((int)Texts.ScoreText).text = "TEST";
+        
         Bind<Image>(typeof(Images));
+
         GameObject go = GetImage((int)Images.ItemImage).gameObject;
-        UI_DragHandler evt = go.GetComponent<UI_DragHandler>();
-        evt.OnDragHandler += ((PointerEventData data) => { go.transform.position = data.position; });
+        AddUIEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
+
+        GetButton((int)Buttons.PointButton).gameObject.AddUIEvent(OnClicked);        
     }
 
 
 
-    public void OnClicked()
+    public void OnClicked(PointerEventData data)
     {
-        Debug.Log("Click!");
+        Debug.Log("Click");
+        _score++;
+        GetText((int)Texts.ScoreText).text = $"Score :{_score}";
     }
 }
