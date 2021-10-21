@@ -34,9 +34,8 @@ public class UI_Button : UI_Base
     {
         Bind<Button>(typeof(Buttons));
         Bind<Text>(typeof(Texts));
-
-        
         Bind<Image>(typeof(Images));
+
 
         GameObject go = GetImage((int)Images.ItemImage).gameObject;
         AddUIEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
